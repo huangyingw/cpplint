@@ -1,11 +1,15 @@
 print "Hello, world"
-import fnmatch
+import os, sys, types, re, fnmatch, itertools
 import scriptutil as SU
-import os
-import re
 
 flist = SU.ffind('.', shellglobs=('*.py', '*.hpp'))
-SU.printr(flist)
+if type(flist) == types.DictType:
+  for f in sorted(flist.keys()):
+    sys.stdout.write("%s\n%s\n" % (flist[f],f))
+else:
+  for f in sorted(flist):
+    sys.stdout.write("%s\n" % f)
+
 
 '''
 rootPath = './'
