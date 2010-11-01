@@ -2,14 +2,16 @@ print "Hello, world"
 import os, sys, types, re, fnmatch, itertools
 import scriptutil as SU
 
-flist = SU.ffind('.', shellglobs=('*.py', '*.hpp'))
+flist = SU.ffind('.', shellglobs=('*.h', '*.hpp', '*.cc'))
 if type(flist) == types.DictType:
   for f in sorted(flist.keys()):
     sys.stdout.write("%s\n%s\n" % (flist[f],f))
 else:
   for f in sorted(flist):
-    execfile('cpplint.py')
     sys.stdout.write("%s\n" % f)
+    sys.argv = [0,f] 
+    execfile('cpplint.py')
+    '''print sys.argv'''
 
 
 '''
