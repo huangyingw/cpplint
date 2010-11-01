@@ -8,6 +8,7 @@ if type(flist) == types.DictType:
     sys.stdout.write("%s\n%s\n" % (flist[f],f))
 else:
   for f in sorted(flist):
+    execfile('cpplint.py')
     sys.stdout.write("%s\n" % f)
 
 
