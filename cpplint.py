@@ -792,6 +792,9 @@ def _ShouldPrintError(category, confidence, linenum):
   return True
 
 
+def ErrorList(filename, linenum, category, confidence, message):
+  sys.stderr.write('%s:%s:  %s  [%s] [%d]\n' % (
+      filename, linenum, message, category, confidence))
 def Error(filename, linenum, category, confidence, message):
   """Logs the fact we've found a lint error.
 
