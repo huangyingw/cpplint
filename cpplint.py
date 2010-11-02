@@ -1151,7 +1151,9 @@ def CheckForUnicodeReplacementCharacters(filename, lines, error):
     if u'\ufffd' in line:
       error(filename, linenum, 'readability/utf8', 5,
             'Line contains invalid UTF-8 (or Unicode replacement character).')
-
+      if len(_AUTHOR) > 0:
+                ErrorList(_AUTHOR[0],filename, linenum, 'readability/utf8', 5,
+            'Line contains invalid UTF-8 (or Unicode replacement character).')
 
 def CheckForNewlineAtEOF(filename, lines, error):
   """Logs an error if there is no newline char at the end of the file.
