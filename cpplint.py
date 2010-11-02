@@ -793,8 +793,8 @@ def _ShouldPrintError(category, confidence, linenum):
   return True
 
 
-def ErrorList(filename, linenum, category, confidence, message):
-  _ERROR_CATEGORIES.extend('%s:%s:  %s  [%s] [%d]\n' % (
+def ErrorList(author,filename, linenum, category, confidence, message):
+  _ERROR_CATEGORIES.extend('%s:%s:%s:  %s  [%s] [%d]\n' % (author,
       filename, linenum, message, category, confidence))
 def Error(filename, linenum, category, confidence, message):
   """Logs the fact we've found a lint error.
