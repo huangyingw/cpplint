@@ -1018,13 +1018,9 @@ def makerelib():
   lib["isbn"] = re.compile("(?:[\d]-?){9}[\dxX]")
 
 def FindAuthor(filename, lines, error):
-  if _AUTHOR == "":
-    for line in xrange(1, min(len(lines), 110)):
-      if re.search(r'Author', lines[line], re.I): break
-    else:                       # means no copyright line was found
-      error(filename, 0, 'legal/author', 5,
-            'No author message found.  '
-            'You should have a line: "Author: <email>"')
+  author_email=[] 
+  for line in lines:
+    lib["email"].findall(line)
 
 def CheckForCopyright(filename, lines, error):
   """Logs an error if no Copyright message appears at the top of the file."""
