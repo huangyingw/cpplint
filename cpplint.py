@@ -2962,6 +2962,7 @@ def ProcessFileData(filename, file_extension, lines, error):
   ResetNolintSuppressions()
 
   CheckForCopyright(filename, lines, error)
+  FindAuthor(filename, lines, error)
 
   if file_extension == 'h':
     CheckForHeaderGuard(filename, lines, error)
