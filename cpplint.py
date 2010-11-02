@@ -3185,6 +3185,8 @@ def main():
   if _cpplint_state.error_count > 0:
     _cpplint_state.PrintErrorCounts()
 
+  for message in _ERRORMESSAGE:
+    sys.stderr.write("%s\n" % messages)
   sys.exit(_cpplint_state.error_count > 0)
 
 
