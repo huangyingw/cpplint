@@ -1018,7 +1018,6 @@ def makerelib():
   lib["isbn"] = re.compile("(?:[\d]-?){9}[\dxX]")
 
 def FindAuthor(filename, lines, error):
-  author_email=[] 
   for line in lines:
     lib["email"].findall(line)
 
