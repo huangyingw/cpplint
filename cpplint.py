@@ -90,7 +90,7 @@ import string
 import sys
 import unicodedata
 
-_AUTHOR ="" 
+_AUTHOR =[]
 _USAGE = """
 Syntax: cpplint.py [--verbose=#] [--output=vs7] [--filter=-x,+y,...]
                    [--counting=total|toplevel|detailed]
@@ -1019,7 +1019,7 @@ def makerelib():
 
 def FindAuthor(filename, lines, error):
   for line in lines:
-    lib["email"].findall(line)
+    _AUTHOR.extend(lib["email"].findall(line))
 
 def CheckForCopyright(filename, lines, error):
   """Logs an error if no Copyright message appears at the top of the file."""
