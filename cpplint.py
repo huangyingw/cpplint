@@ -489,10 +489,6 @@ class _IncludeState(dict):
     return ''
 
 
-class _FileLintState(object):
-  def __init__(self):
-    self.error_count = 0
-    self._AUTHOR=[]
 class _CppLintState(object):
   """Maintains module-wide state.."""
 
@@ -1038,6 +1034,10 @@ def CheckForCopyright(filename, lines, error):
     if re.search(r'Copyright', lines[line], re.I): break
   else:                       # means no copyright line was found
     error(filename, 0, 'legal/copyright', 5,
+          'No copyright message found.  '
+          'You should have a line: "Copyright [year] <Copyright Owner>"')
+    if len(_AUTHOR) > 0:
+      ErrorList(_AUTHOR[0],filename, 0, 'legal/copyright', 5,
           'No copyright message found.  '
           'You should have a line: "Copyright [year] <Copyright Owner>"')
 
@@ -2979,7 +2979,6 @@ def ProcessFileData(filename, file_extension, lines, error):
 
   ResetNolintSuppressions()
 
-  _AUTHOR[:]=[]
   FindAuthor(lines)
   CheckForCopyright(filename, lines, error)
 
@@ -3000,6 +2999,7 @@ def ProcessFileData(filename, file_extension, lines, error):
   CheckForUnicodeReplacementCharacters(filename, lines, error)
 
   CheckForNewlineAtEOF(filename, lines, error)
+  _AUTHOR[:]=[]
 
 def ProcessFile(filename, vlevel):
   """Does google-lint on a single file.
@@ -3061,8 +3061,6 @@ def ProcessFile(filename, vlevel):
             'One or more unexpected \\r (^M) found;'
             'better to use only a \\n')
 
-  for author in _AUTHOR:
-    print author
   '''sys.stderr.write('Done processing %s\n' % filename)'''
   print('Done processing %s\n' % filename)
 
@@ -3154,12 +3152,9 @@ def main():
 
   _cpplint_state.ResetErrorCounts()
   for filename in filenames:
-    _filelint_state = _FileLintState()
     ProcessFile(filename, _cpplint_state.verbose_level)
   if _cpplint_state.error_count > 0:
     _cpplint_state.PrintErrorCounts()
-    for author in _AUTHOR:
-      sys.stderr.write('The following guys should be emailed: %s\n' % author)
 
   sys.exit(_cpplint_state.error_count > 0)
 
