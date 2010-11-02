@@ -1004,12 +1004,13 @@ def CloseExpression(clean_lines, linenum, pos):
 
 
 def FindAuthor(filename, lines, error):
-  for line in xrange(1, min(len(lines), 110)):
-    if re.search(r'Author', lines[line], re.I): break
-  else:                       # means no copyright line was found
-    error(filename, 0, 'legal/copyright', 5,
-          'No copyright message found.  '
-          'You should have a line: "Copyright [year] <Copyright Owner>"')
+  if _AUTHOR == "":
+    for line in xrange(1, min(len(lines), 110)):
+      if re.search(r'Author', lines[line], re.I): break
+    else:                       # means no copyright line was found
+      error(filename, 0, 'legal/copyright', 5,
+            'No copyright message found.  '
+            'You should have a line: "Copyright [year] <Copyright Owner>"')
 
 def CheckForCopyright(filename, lines, error):
   """Logs an error if no Copyright message appears at the top of the file."""
