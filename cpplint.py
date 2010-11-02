@@ -1117,6 +1117,9 @@ def CheckForHeaderGuard(filename, lines, error):
                             error)
     error(filename, ifndef_linenum, 'build/header_guard', error_level,
           '#ifndef header guard has wrong style, please use: %s' % cppvar)
+    if len(_AUTHOR) > 0:
+          ErrorList(_AUTHOR[0],filename, ifndef_linenum, 'build/header_guard', error_level,
+          '#ifndef header guard has wrong style, please use: %s' % cppvar)
 
   if endif != ('#endif  // %s' % cppvar):
     error_level = 0
