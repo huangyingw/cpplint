@@ -1206,7 +1206,7 @@ def CheckForMultilineCommentsAndStrings(filename, clean_lines, linenum, error):
           'with #if 0...#endif, '
           'or with more clearly structured multi-line comments.')
     if len(_AUTHOR) > 0:
-                        ErrorList(_AUTHOR[0],filename, linenum, 'readability/multiline_comment', 5,
+      ErrorList(_AUTHOR[0],filename, linenum, 'readability/multiline_comment', 5,
           'Complex multi-line /*...*/-style comment found. '
           'Lint may give bogus warnings.  '
           'Consider replacing these with //-style comments, '
@@ -1217,7 +1217,11 @@ def CheckForMultilineCommentsAndStrings(filename, clean_lines, linenum, error):
           'Multi-line string ("...") found.  This lint script doesn\'t '
           'do well with such strings, and may give bogus warnings.  They\'re '
           'ugly and unnecessary, and you should use concatenation instead".')
-
+    if len(_AUTHOR) > 0:
+      ErrorList(_AUTHOR[0],filename, linenum, 'readability/multiline_string', 5,
+          'Multi-line string ("...") found.  This lint script doesn\'t '
+          'do well with such strings, and may give bogus warnings.  They\'re '
+          'ugly and unnecessary, and you should use concatenation instead".')
 
 threading_list = (
     ('asctime(', 'asctime_r('),
