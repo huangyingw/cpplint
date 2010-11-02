@@ -817,10 +817,10 @@ def Error(filename, linenum, category, confidence, message):
   if _ShouldPrintError(category, confidence, linenum):
     _cpplint_state.IncrementErrorCount(category)
     if _cpplint_state.output_format == 'vs7':
-      sys.stderr.write('%s(%s):  %s  [%s] [%d]\n' % (
+      sys.stdout.write('%s(%s):  %s  [%s] [%d]\n' % (
           filename, linenum, message, category, confidence))
     else:
-      sys.stderr.write('%s:%s:  %s  [%s] [%d]\n' % (
+      sys.stdout.write('%s:%s:  %s  [%s] [%d]\n' % (
           filename, linenum, message, category, confidence))
 
 
