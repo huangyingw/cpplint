@@ -2959,6 +2959,7 @@ def ProcessLine(filename, file_extension,
   CheckInvalidIncrement(filename, clean_lines, line, error)
 
 
+tests=makerelib()
 def ProcessFileData(filename, file_extension, lines, error):
   """Performs lint checks and reports any errors to the given error function.
 
@@ -2978,7 +2979,6 @@ def ProcessFileData(filename, file_extension, lines, error):
 
   ResetNolintSuppressions()
 
-  tests=makerelib()
   _AUTHOR[:]=[]
   FindAuthor(lines)
   CheckForCopyright(filename, lines, error)
