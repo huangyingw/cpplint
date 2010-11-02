@@ -1017,7 +1017,7 @@ def makerelib():
   lib["ninumber"] = re.compile("[a-z]{2}\s?\d{2}\s?\d{2}\s?\d{2}\s?[a-z]",re.IGNORECASE)
   lib["isbn"] = re.compile("(?:[\d]-?){9}[\dxX]")
 
-def FindAuthor(filename, lines, error):
+def FindAuthor(lines):
   for line in lines:
     _AUTHOR.extend(lib["email"].findall(line))
 
@@ -2972,7 +2972,7 @@ def ProcessFileData(filename, file_extension, lines, error):
 
   tests=makerelib()
   CheckForCopyright(filename, lines, error)
-  FindAuthor(filename, lines, error)
+  FindAuthor(lines)
 
   if file_extension == 'h':
     CheckForHeaderGuard(filename, lines, error)
