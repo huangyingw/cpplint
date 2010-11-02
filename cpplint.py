@@ -790,7 +790,7 @@ def _ShouldPrintError(category, confidence, linenum):
 
 
 def ErrorList(author,filename, linenum, category, confidence, message):
-  _ERROR_CATEGORIES.extend('%s:%s:%s:  %s  [%s] [%d]\n' % (author,
+  _ERRORMESSAGE.extend('%s:%s:%s:  %s  [%s] [%d]\n' % (author,
       filename, linenum, message, category, confidence))
 def Error(filename, linenum, category, confidence, message):
   """Logs the fact we've found a lint error.
@@ -3188,7 +3188,7 @@ def main():
 
   sys.stderr.write("len of message:%d\n" % len(_ERRORMESSAGE))
   for message in _ERRORMESSAGE:
-    sys.stderr.write("show error message:%s\n" % messages)
+    sys.stderr.write("show error message:%s\n" % message)
   sys.exit(_cpplint_state.error_count > 0)
 
 
