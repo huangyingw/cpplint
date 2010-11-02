@@ -2971,8 +2971,8 @@ def ProcessFileData(filename, file_extension, lines, error):
   ResetNolintSuppressions()
 
   tests=makerelib()
-  CheckForCopyright(filename, lines, error)
   FindAuthor(lines)
+  CheckForCopyright(filename, lines, error)
 
   if file_extension == 'h':
     CheckForHeaderGuard(filename, lines, error)
