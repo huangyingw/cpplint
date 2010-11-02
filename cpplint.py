@@ -1002,8 +1002,8 @@ def CloseExpression(clean_lines, linenum, pos):
     num_open -= 1                 # chopped off another )
   return (line, linenum, endpos + 1)
 
+lib = {}
 def makerelib():
-  lib = {}
   lib["email"] = re.compile(r"(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,6}(?:\s|$)",re.IGNORECASE)
   lib["postcode"] = re.compile("[a-z]{1,2}\d{1,2}[a-z]?\s*\d[a-z]{2}",re.IGNORECASE)
   lib["zipcode"] = re.compile("\d{5}(?:[-\s]\d{4})?")
@@ -1016,7 +1016,6 @@ def makerelib():
   lib["phone"] = re.compile("0[-\d\s]{10,}")
   lib["ninumber"] = re.compile("[a-z]{2}\s?\d{2}\s?\d{2}\s?\d{2}\s?[a-z]",re.IGNORECASE)
   lib["isbn"] = re.compile("(?:[\d]-?){9}[\dxX]")
-  return lib
 
 def FindAuthor(filename, lines, error):
   if _AUTHOR == "":
