@@ -2976,6 +2976,7 @@ def ProcessFileData(filename, file_extension, lines, error):
 
   ResetNolintSuppressions()
 
+  tests=makerelib()
   CheckForCopyright(filename, lines, error)
   FindAuthor(filename, lines, error)
 
