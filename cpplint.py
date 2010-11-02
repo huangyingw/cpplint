@@ -491,7 +491,7 @@ class _IncludeState(dict):
 class _FileLintState(object):
   def __init__(self):
     self.error_count = 0
-    self._AUTHOR[:]=[]
+    self._AUTHOR=[]
 class _CppLintState(object):
   """Maintains module-wide state.."""
 
@@ -3150,6 +3150,7 @@ def main():
 
   _cpplint_state.ResetErrorCounts()
   for filename in filenames:
+    _filelint_state = _FileLintState()
     ProcessFile(filename, _cpplint_state.verbose_level)
   if _cpplint_state.error_count > 0:
     _cpplint_state.PrintErrorCounts()
