@@ -1130,7 +1130,9 @@ def CheckForHeaderGuard(filename, lines, error):
                             error)
     error(filename, endif_linenum, 'build/header_guard', error_level,
           '#endif line should be "#endif  // %s"' % cppvar)
-
+    if len(_AUTHOR) > 0:
+              ErrorList(_AUTHOR[0],filename, endif_linenum, 'build/header_guard', error_level,
+          '#endif line should be "#endif  // %s"' % cppvar)
 
 def CheckForUnicodeReplacementCharacters(filename, lines, error):
   """Logs an error for each line containing Unicode replacement characters.
