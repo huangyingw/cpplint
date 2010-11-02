@@ -488,6 +488,10 @@ class _IncludeState(dict):
     return ''
 
 
+class _FileLintState(object):
+  def __init__(self):
+    self.error_count = 0
+    self._AUTHOR[:]=[]
 class _CppLintState(object):
   """Maintains module-wide state.."""
 
