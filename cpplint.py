@@ -90,7 +90,7 @@ import string
 import sys
 import unicodedata
 
-
+_AUTHOR ="" 
 _USAGE = """
 Syntax: cpplint.py [--verbose=#] [--output=vs7] [--filter=-x,+y,...]
                    [--counting=total|toplevel|detailed]
