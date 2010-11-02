@@ -1,8 +1,0 @@
-set path+=/media/volgrp/myproject_copy/git/c_c++/googletest
-set path+=/media/volgrp/myproject_copy/git/c_c++/googletest/include
-set tags+=/media/volgrp/myproject_copy/git/c_c++/googletest/tags
-if filereadable("cscope.out")
-cs add cscope.out .
-endif
-
-
