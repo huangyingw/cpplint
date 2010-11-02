@@ -1100,6 +1100,10 @@ def CheckForHeaderGuard(filename, lines, error):
     error(filename, 0, 'build/header_guard', 5,
           'No #ifndef header guard found, suggested CPP variable is: %s' %
           cppvar)
+    if len(_AUTHOR) > 0:
+      ErrorList(_AUTHOR[0],filename, 0, 'build/header_guard', 5,
+          'No #ifndef header guard found, suggested CPP variable is: %s' %
+          cppvar)
     return
 
   # The guard should be PATH_FILE_H_, but we also allow PATH_FILE_H__
