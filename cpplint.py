@@ -3009,6 +3009,7 @@ def ProcessFileData(filename, file_extension, lines, error):
   ResetNolintSuppressions()
 
   FindAuthor(lines)
+  sys.stderr.write("len of _AUTHOR: %d\n" % len(_AUTHOR))
   CheckForCopyright(filename, lines, error)
 
   if file_extension == 'h':
