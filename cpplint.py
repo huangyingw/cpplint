@@ -3109,8 +3109,9 @@ def ParseArguments(args):
   return filenames
 
 
-def main(filename):
-  '''filenames = ParseArguments(sys.argv[1:])'''
+def main():
+  filenames = ParseArguments(sys.argv[1:])
+  print filenames 
 
   # Change stderr to write with replacement characters so we don't die
   # if we try to print something containing non-ASCII characters.
@@ -3120,7 +3121,8 @@ def main(filename):
                                          'replace')
 
   _cpplint_state.ResetErrorCounts()
-  ProcessFile(filename, _cpplint_state.verbose_level)
+  for filename in filenames:
+    ProcessFile(filename, _cpplint_state.verbose_level)
   _cpplint_state.PrintErrorCounts()
 
   sys.exit(_cpplint_state.error_count > 0)
