@@ -1,6 +1,6 @@
-print "Hello, world"
 import os, sys, types, re, fnmatch, itertools
 import scriptutil as SU
+import cpplint as cl 
 
 flist = SU.ffind('.', shellglobs=('*.h', '*.hpp', '*.cc'))
 if type(flist) == types.DictType:
@@ -8,10 +8,11 @@ if type(flist) == types.DictType:
     sys.stdout.write("%s\n%s\n" % (flist[f],f))
 else:
   for f in sorted(flist):
-    sys.stdout.write("%s\n" % f)
-    sys.argv = [0,f] 
-    execfile('cpplint.py')
-    '''print sys.argv'''
+    ''' sys.stdout.write("%s\n" % f)''' 
+    file_name=f
+    cl.main(f)
+    '''execfile('cpplint.py')'''
+    print file_name 
 
 
 '''
