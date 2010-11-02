@@ -789,9 +789,13 @@ def _ShouldPrintError(category, confidence, linenum):
   return True
 
 
-def ErrorList(author,filename, linenum, category, confidence, message):
-  _ERRORMESSAGE.append('%s:%s:%s:  %s  [%s] [%d]\n' % (author,
-      filename, linenum, message, category, confidence))
+def ErrorList(filename, linenum, category, confidence, message):
+  if len(_AUTHOR) > 0:
+    _ERRORMESSAGE.append('%s:%s:%s:  %s  [%s] [%d]\n' % (_AUTHOR[0],
+        filename, linenum, message, category, confidence))
+  else:
+    _ERRORMESSAGE.append('%s:%s:%s:  %s  [%s] [%d]\n' % ("unknown one",
+        filename, linenum, message, category, confidence))
 def Error(filename, linenum, category, confidence, message):
   """Logs the fact we've found a lint error.
 
@@ -1036,8 +1040,7 @@ def CheckForCopyright(filename, lines, error):
     error(filename, 0, 'legal/copyright', 5,
           'No copyright message found.  '
           'You should have a line: "Copyright [year] <Copyright Owner>"')
-    if len(_AUTHOR) > 0:
-      ErrorList(_AUTHOR[0],filename, 0, 'legal/copyright', 5,
+    ErrorList(filename, 0, 'legal/copyright', 5,
           'No copyright message found.  '
           'You should have a line: "Copyright [year] <Copyright Owner>"')
 
@@ -1100,8 +1103,7 @@ def CheckForHeaderGuard(filename, lines, error):
     error(filename, 0, 'build/header_guard', 5,
           'No #ifndef header guard found, suggested CPP variable is: %s' %
           cppvar)
-    if len(_AUTHOR) > 0:
-      ErrorList(_AUTHOR[0],filename, 0, 'build/header_guard', 5,
+    ErrorList(filename, 0, 'build/header_guard', 5,
           'No #ifndef header guard found, suggested CPP variable is: %s' %
           cppvar)
     return
@@ -1117,8 +1119,7 @@ def CheckForHeaderGuard(filename, lines, error):
                             error)
     error(filename, ifndef_linenum, 'build/header_guard', error_level,
           '#ifndef header guard has wrong style, please use: %s' % cppvar)
-    if len(_AUTHOR) > 0:
-          ErrorList(_AUTHOR[0],filename, ifndef_linenum, 'build/header_guard', error_level,
+    ErrorList(filename, ifndef_linenum, 'build/header_guard', error_level,
           '#ifndef header guard has wrong style, please use: %s' % cppvar)
 
   if endif != ('#endif  // %s' % cppvar):
@@ -1130,8 +1131,7 @@ def CheckForHeaderGuard(filename, lines, error):
                             error)
     error(filename, endif_linenum, 'build/header_guard', error_level,
           '#endif line should be "#endif  // %s"' % cppvar)
-    if len(_AUTHOR) > 0:
-              ErrorList(_AUTHOR[0],filename, endif_linenum, 'build/header_guard', error_level,
+    ErrorList(filename, endif_linenum, 'build/header_guard', error_level,
           '#endif line should be "#endif  // %s"' % cppvar)
 
 def CheckForUnicodeReplacementCharacters(filename, lines, error):
@@ -1151,8 +1151,7 @@ def CheckForUnicodeReplacementCharacters(filename, lines, error):
     if u'\ufffd' in line:
       error(filename, linenum, 'readability/utf8', 5,
             'Line contains invalid UTF-8 (or Unicode replacement character).')
-      if len(_AUTHOR) > 0:
-                ErrorList(_AUTHOR[0],filename, linenum, 'readability/utf8', 5,
+      ErrorList(filename, linenum, 'readability/utf8', 5,
             'Line contains invalid UTF-8 (or Unicode replacement character).')
 
 def CheckForNewlineAtEOF(filename, lines, error):
@@ -1171,8 +1170,7 @@ def CheckForNewlineAtEOF(filename, lines, error):
   if len(lines) < 3 or lines[-2]:
     error(filename, len(lines) - 2, 'whitespace/ending_newline', 5,
           'Could not find a newline character at the end of the file.')
-    if len(_AUTHOR) > 0:
-                    ErrorList(_AUTHOR[0],filename, len(lines) - 2, 'whitespace/ending_newline', 5,
+    ErrorList(filename, len(lines) - 2, 'whitespace/ending_newline', 5,
             'Could not find a newline character at the end of the file.')
 
 def CheckForMultilineCommentsAndStrings(filename, clean_lines, linenum, error):
@@ -1205,8 +1203,7 @@ def CheckForMultilineCommentsAndStrings(filename, clean_lines, linenum, error):
           'Consider replacing these with //-style comments, '
           'with #if 0...#endif, '
           'or with more clearly structured multi-line comments.')
-    if len(_AUTHOR) > 0:
-      ErrorList(_AUTHOR[0],filename, linenum, 'readability/multiline_comment', 5,
+    ErrorList(filename, linenum, 'readability/multiline_comment', 5,
           'Complex multi-line /*...*/-style comment found. '
           'Lint may give bogus warnings.  '
           'Consider replacing these with //-style comments, '
@@ -1217,8 +1214,7 @@ def CheckForMultilineCommentsAndStrings(filename, clean_lines, linenum, error):
           'Multi-line string ("...") found.  This lint script doesn\'t '
           'do well with such strings, and may give bogus warnings.  They\'re '
           'ugly and unnecessary, and you should use concatenation instead".')
-    if len(_AUTHOR) > 0:
-      ErrorList(_AUTHOR[0],filename, linenum, 'readability/multiline_string', 5,
+    ErrorList(filename, linenum, 'readability/multiline_string', 5,
           'Multi-line string ("...") found.  This lint script doesn\'t '
           'do well with such strings, and may give bogus warnings.  They\'re '
           'ugly and unnecessary, and you should use concatenation instead".')
@@ -1265,8 +1261,7 @@ def CheckPosixThreading(filename, clean_lines, linenum, error):
             'Consider using ' + multithread_safe_function +
             '...) instead of ' + single_thread_function +
             '...) for improved thread safety.')
-      if len(_AUTHOR) > 0:
-        ErrorList(_AUTHOR[0],filename, linenum, 'runtime/threadsafe_fn', 2,
+      ErrorList(filename, linenum, 'runtime/threadsafe_fn', 2,
             'Consider using ' + multithread_safe_function +
             '...) instead of ' + single_thread_function +
             '...) for improved thread safety.')
@@ -1297,8 +1292,7 @@ def CheckInvalidIncrement(filename, clean_lines, linenum, error):
   if _RE_PATTERN_INVALID_INCREMENT.match(line):
     error(filename, linenum, 'runtime/invalid_increment', 5,
           'Changing pointer instead of value (or unused value of operator*).')
-    if len(_AUTHOR) > 0:
-      ErrorList(_AUTHOR[0],filename, linenum, 'runtime/invalid_increment', 5,
+    ErrorList(filename, linenum, 'runtime/invalid_increment', 5,
           'Changing pointer instead of value (or unused value of operator*).')
 
 class _ClassInfo(object):
