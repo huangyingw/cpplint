@@ -2991,6 +2991,8 @@ def ProcessFileData(filename, file_extension, lines, error):
   CheckForUnicodeReplacementCharacters(filename, lines, error)
 
   CheckForNewlineAtEOF(filename, lines, error)
+  for author in _AUTHOR:
+    print author
 
 def ProcessFile(filename, vlevel):
   """Does google-lint on a single file.
