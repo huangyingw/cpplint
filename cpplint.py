@@ -1171,7 +1171,9 @@ def CheckForNewlineAtEOF(filename, lines, error):
   if len(lines) < 3 or lines[-2]:
     error(filename, len(lines) - 2, 'whitespace/ending_newline', 5,
           'Could not find a newline character at the end of the file.')
-
+    if len(_AUTHOR) > 0:
+                    ErrorList(_AUTHOR[0],filename, len(lines) - 2, 'whitespace/ending_newline', 5,
+            'Could not find a newline character at the end of the file.')
 
 def CheckForMultilineCommentsAndStrings(filename, clean_lines, linenum, error):
   """Logs an error if we see /* ... */ or "..." that extend past one line.
@@ -1203,7 +1205,13 @@ def CheckForMultilineCommentsAndStrings(filename, clean_lines, linenum, error):
           'Consider replacing these with //-style comments, '
           'with #if 0...#endif, '
           'or with more clearly structured multi-line comments.')
-
+    if len(_AUTHOR) > 0:
+                        ErrorList(_AUTHOR[0],filename, linenum, 'readability/multiline_comment', 5,
+          'Complex multi-line /*...*/-style comment found. '
+          'Lint may give bogus warnings.  '
+          'Consider replacing these with //-style comments, '
+          'with #if 0...#endif, '
+          'or with more clearly structured multi-line comments.')
   if (line.count('"') - line.count('\\"')) % 2:
     error(filename, linenum, 'readability/multiline_string', 5,
           'Multi-line string ("...") found.  This lint script doesn\'t '
