@@ -1002,6 +1002,21 @@ def CloseExpression(clean_lines, linenum, pos):
     num_open -= 1                 # chopped off another )
   return (line, linenum, endpos + 1)
 
+def makerelib():
+  lib = {}
+  lib["email"] = re.compile(r"(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,6}(?:\s|$)",re.IGNORECASE)
+  lib["postcode"] = re.compile("[a-z]{1,2}\d{1,2}[a-z]?\s*\d[a-z]{2}",re.IGNORECASE)
+  lib["zipcode"] = re.compile("\d{5}(?:[-\s]\d{4})?")
+  lib["ukdate"] = re.compile \
+  ("[0123]?\d[-/\s\.](?:[01]\d|[a-z]{3,})[-/\s\.](?:\d{2})?\d{2}",re.IGNORECASE)
+  lib["time"] = re.compile("\d{1,2}:\d{1,2}(?:\s*[aApP]\.?[mM]\.?)?")
+  lib["fullurl"] = re.compile("https?://[-a-z0-9\.]{4,}(?::\d+)?/[^#?]+(?:#\S+)?",re.IGNORECASE)
+  lib["visacard"] = re.compile("4\d{3}[\s-]?\d{4}[\s-]?\d{4}[\s-]?\d{4}")
+  lib["mastercard"] = re.compile("5[1-5]\d{2}[\s-]?\d{4}[\s-]?\d{4}[\s-]?\d{4}")
+  lib["phone"] = re.compile("0[-\d\s]{10,}")
+  lib["ninumber"] = re.compile("[a-z]{2}\s?\d{2}\s?\d{2}\s?\d{2}\s?[a-z]",re.IGNORECASE)
+  lib["isbn"] = re.compile("(?:[\d]-?){9}[\dxX]")
+  return lib
 
 def FindAuthor(filename, lines, error):
   if _AUTHOR == "":
