@@ -1265,7 +1265,11 @@ def CheckPosixThreading(filename, clean_lines, linenum, error):
             'Consider using ' + multithread_safe_function +
             '...) instead of ' + single_thread_function +
             '...) for improved thread safety.')
-
+      if len(_AUTHOR) > 0:
+        ErrorList(_AUTHOR[0],filename, linenum, 'runtime/threadsafe_fn', 2,
+            'Consider using ' + multithread_safe_function +
+            '...) instead of ' + single_thread_function +
+            '...) for improved thread safety.')
 
 # Matches invalid increment: *count++, which moves pointer instead of
 # incrementing a value.
@@ -1293,7 +1297,9 @@ def CheckInvalidIncrement(filename, clean_lines, linenum, error):
   if _RE_PATTERN_INVALID_INCREMENT.match(line):
     error(filename, linenum, 'runtime/invalid_increment', 5,
           'Changing pointer instead of value (or unused value of operator*).')
-
+    if len(_AUTHOR) > 0:
+      ErrorList(_AUTHOR[0],filename, linenum, 'runtime/invalid_increment', 5,
+          'Changing pointer instead of value (or unused value of operator*).')
 
 class _ClassInfo(object):
   """Stores information about a class."""
