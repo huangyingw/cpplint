@@ -2971,6 +2971,7 @@ def ProcessFileData(filename, file_extension, lines, error):
   ResetNolintSuppressions()
 
   tests=makerelib()
+  _AUTHOR[:]=[]
   FindAuthor(lines)
   CheckForCopyright(filename, lines, error)
 
@@ -2991,8 +2992,6 @@ def ProcessFileData(filename, file_extension, lines, error):
   CheckForUnicodeReplacementCharacters(filename, lines, error)
 
   CheckForNewlineAtEOF(filename, lines, error)
-  for author in _AUTHOR:
-    print author
 
 def ProcessFile(filename, vlevel):
   """Does google-lint on a single file.
@@ -3054,6 +3053,8 @@ def ProcessFile(filename, vlevel):
             'One or more unexpected \\r (^M) found;'
             'better to use only a \\n')
 
+  for author in _AUTHOR:
+    print author
   sys.stderr.write('Done processing %s\n' % filename)
 
 

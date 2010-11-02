@@ -1,3 +1,4 @@
 *.hpp
 *.h
 *.cc
+.vimdc
