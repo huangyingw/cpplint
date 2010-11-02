@@ -91,6 +91,7 @@ import sys
 import unicodedata
 
 _AUTHOR =[]
+_ERRORMESSAGE=[]
 _USAGE = """
 Syntax: cpplint.py [--verbose=#] [--output=vs7] [--filter=-x,+y,...]
                    [--counting=total|toplevel|detailed]
@@ -793,7 +794,7 @@ def _ShouldPrintError(category, confidence, linenum):
 
 
 def ErrorList(filename, linenum, category, confidence, message):
-  sys.stderr.write('%s:%s:  %s  [%s] [%d]\n' % (
+  _ERROR_CATEGORIES.extend('%s:%s:  %s  [%s] [%d]\n' % (
       filename, linenum, message, category, confidence))
 def Error(filename, linenum, category, confidence, message):
   """Logs the fact we've found a lint error.
